@@ -1,0 +1,12 @@
+E:\mini_scope\mini_scope_pc\mini_scope_pc\bin\Debug\mini_scope_pc.exe.config
+E:\mini_scope\mini_scope_pc\mini_scope_pc\bin\Debug\mini_scope_pc.exe
+E:\mini_scope\mini_scope_pc\mini_scope_pc\bin\Debug\mini_scope_pc.pdb
+E:\mini_scope\mini_scope_pc\mini_scope_pc\bin\Debug\ZedGraph.dll
+E:\mini_scope\mini_scope_pc\mini_scope_pc\obj\Debug\mini_scope_pc.csproj.AssemblyReference.cache
+E:\mini_scope\mini_scope_pc\mini_scope_pc\obj\Debug\mini_scope_pc.Form1.resources
+E:\mini_scope\mini_scope_pc\mini_scope_pc\obj\Debug\mini_scope_pc.Properties.Resources.resources
+E:\mini_scope\mini_scope_pc\mini_scope_pc\obj\Debug\mini_scope_pc.csproj.GenerateResource.cache
+E:\mini_scope\mini_scope_pc\mini_scope_pc\obj\Debug\mini_scope_pc.csproj.CoreCompileInputs.cache
+E:\mini_scope\mini_scope_pc\mini_scope_pc\obj\Debug\mini_scope_pc.csproj.CopyComplete
+E:\mini_scope\mini_scope_pc\mini_scope_pc\obj\Debug\mini_scope_pc.exe
+E:\mini_scope\mini_scope_pc\mini_scope_pc\obj\Debug\mini_scope_pc.pdb
