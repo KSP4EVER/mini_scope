@@ -37,11 +37,11 @@ namespace mini_scope_pc
             this.coupling = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.min_value = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.max_value = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
+            this.avg_value = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -61,9 +61,34 @@ namespace mini_scope_pc
             this.panel1 = new System.Windows.Forms.Panel();
             this.time_div = new System.Windows.Forms.Label();
             this.voltage_div = new System.Windows.Forms.Label();
+            this.cursor_enable = new System.Windows.Forms.CheckBox();
+            this.cursor_value = new System.Windows.Forms.TrackBar();
+            this.cursor_a_b = new System.Windows.Forms.Button();
+            this.cursor_select_axix = new System.Windows.Forms.Button();
+            this.x_diff = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.cursor_bx = new System.Windows.Forms.Label();
+            this.cursor_bx_text = new System.Windows.Forms.Label();
+            this.cursor_ax = new System.Windows.Forms.Label();
+            this.cursor_ax_text = new System.Windows.Forms.Label();
+            this.cursor_by = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.cursor_ay = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.y_diff = new System.Windows.Forms.Label();
+            this.freq = new System.Windows.Forms.Label();
+            this.cursor_panel = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.com_conn = new System.Windows.Forms.Button();
+            this.com_port_list = new System.Windows.Forms.ComboBox();
+            this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.voltage_offset_track)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cursor_value)).BeginInit();
+            this.cursor_panel.SuspendLayout();
             this.SuspendLayout();
             // 
             // zedGraphControl1
@@ -97,7 +122,7 @@ namespace mini_scope_pc
             // timer1
             // 
             this.timer1.Enabled = true;
-            this.timer1.Interval = 10;
+            this.timer1.Interval = 30;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // label1
@@ -144,15 +169,15 @@ namespace mini_scope_pc
             this.label3.TabIndex = 5;
             this.label3.Text = "Min:";
             // 
-            // label4
+            // min_value
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(54, 376);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(26, 13);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "Ch1";
+            this.min_value.AutoSize = true;
+            this.min_value.Location = new System.Drawing.Point(54, 376);
+            this.min_value.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.min_value.Name = "min_value";
+            this.min_value.Size = new System.Drawing.Size(26, 13);
+            this.min_value.TabIndex = 6;
+            this.min_value.Text = "Ch1";
             // 
             // label5
             // 
@@ -164,15 +189,15 @@ namespace mini_scope_pc
             this.label5.TabIndex = 7;
             this.label5.Text = "Max:";
             // 
-            // label6
+            // max_value
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(129, 376);
-            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(26, 13);
-            this.label6.TabIndex = 8;
-            this.label6.Text = "Ch1";
+            this.max_value.AutoSize = true;
+            this.max_value.Location = new System.Drawing.Point(129, 376);
+            this.max_value.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.max_value.Name = "max_value";
+            this.max_value.Size = new System.Drawing.Size(26, 13);
+            this.max_value.TabIndex = 8;
+            this.max_value.Text = "Ch1";
             // 
             // label7
             // 
@@ -184,15 +209,15 @@ namespace mini_scope_pc
             this.label7.TabIndex = 9;
             this.label7.Text = "Avg:";
             // 
-            // label8
+            // avg_value
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(195, 376);
-            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(26, 13);
-            this.label8.TabIndex = 10;
-            this.label8.Text = "Ch1";
+            this.avg_value.AutoSize = true;
+            this.avg_value.Location = new System.Drawing.Point(195, 376);
+            this.avg_value.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.avg_value.Name = "avg_value";
+            this.avg_value.Size = new System.Drawing.Size(26, 13);
+            this.avg_value.TabIndex = 10;
+            this.avg_value.Text = "Ch1";
             // 
             // label9
             // 
@@ -291,7 +316,6 @@ namespace mini_scope_pc
             this.label13.Size = new System.Drawing.Size(62, 13);
             this.label13.TabIndex = 20;
             this.label13.Text = "Voltage Div";
-            this.label13.Click += new System.EventHandler(this.label13_Click);
             // 
             // voltage_offset
             // 
@@ -393,11 +417,252 @@ namespace mini_scope_pc
             this.voltage_div.TabIndex = 0;
             this.voltage_div.Text = "label14";
             // 
+            // cursor_enable
+            // 
+            this.cursor_enable.AutoSize = true;
+            this.cursor_enable.Location = new System.Drawing.Point(591, 414);
+            this.cursor_enable.Name = "cursor_enable";
+            this.cursor_enable.Size = new System.Drawing.Size(56, 17);
+            this.cursor_enable.TabIndex = 29;
+            this.cursor_enable.Text = "Cursor";
+            this.cursor_enable.UseVisualStyleBackColor = true;
+            this.cursor_enable.CheckedChanged += new System.EventHandler(this.cursor_enable_CheckedChanged);
+            // 
+            // cursor_value
+            // 
+            this.cursor_value.LargeChange = 10;
+            this.cursor_value.Location = new System.Drawing.Point(591, 450);
+            this.cursor_value.Margin = new System.Windows.Forms.Padding(2);
+            this.cursor_value.Maximum = 2500;
+            this.cursor_value.Minimum = -2500;
+            this.cursor_value.Name = "cursor_value";
+            this.cursor_value.Size = new System.Drawing.Size(204, 45);
+            this.cursor_value.TabIndex = 30;
+            this.cursor_value.Scroll += new System.EventHandler(this.cursor_value_Scroll);
+            // 
+            // cursor_a_b
+            // 
+            this.cursor_a_b.Location = new System.Drawing.Point(649, 410);
+            this.cursor_a_b.Name = "cursor_a_b";
+            this.cursor_a_b.Size = new System.Drawing.Size(75, 23);
+            this.cursor_a_b.TabIndex = 31;
+            this.cursor_a_b.Text = "CursorA";
+            this.cursor_a_b.UseVisualStyleBackColor = true;
+            this.cursor_a_b.Click += new System.EventHandler(this.cursor_a_b_Click);
+            // 
+            // cursor_select_axix
+            // 
+            this.cursor_select_axix.Location = new System.Drawing.Point(730, 410);
+            this.cursor_select_axix.Name = "cursor_select_axix";
+            this.cursor_select_axix.Size = new System.Drawing.Size(75, 23);
+            this.cursor_select_axix.TabIndex = 32;
+            this.cursor_select_axix.Text = "| |";
+            this.cursor_select_axix.UseVisualStyleBackColor = true;
+            this.cursor_select_axix.Click += new System.EventHandler(this.cursor_select_axix_Click);
+            // 
+            // x_diff
+            // 
+            this.x_diff.AutoSize = true;
+            this.x_diff.Location = new System.Drawing.Point(177, 2);
+            this.x_diff.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.x_diff.Name = "x_diff";
+            this.x_diff.Size = new System.Drawing.Size(26, 13);
+            this.x_diff.TabIndex = 38;
+            this.x_diff.Text = "Ch1";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(132, 2);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(41, 13);
+            this.label6.TabIndex = 37;
+            this.label6.Text = "BX-AX:";
+            // 
+            // cursor_bx
+            // 
+            this.cursor_bx.AutoSize = true;
+            this.cursor_bx.Location = new System.Drawing.Point(28, 26);
+            this.cursor_bx.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.cursor_bx.Name = "cursor_bx";
+            this.cursor_bx.Size = new System.Drawing.Size(26, 13);
+            this.cursor_bx.TabIndex = 36;
+            this.cursor_bx.Text = "Ch1";
+            // 
+            // cursor_bx_text
+            // 
+            this.cursor_bx_text.AutoSize = true;
+            this.cursor_bx_text.Location = new System.Drawing.Point(0, 26);
+            this.cursor_bx_text.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.cursor_bx_text.Name = "cursor_bx_text";
+            this.cursor_bx_text.Size = new System.Drawing.Size(24, 13);
+            this.cursor_bx_text.TabIndex = 35;
+            this.cursor_bx_text.Text = "BX:";
+            // 
+            // cursor_ax
+            // 
+            this.cursor_ax.AutoSize = true;
+            this.cursor_ax.Location = new System.Drawing.Point(28, 2);
+            this.cursor_ax.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.cursor_ax.Name = "cursor_ax";
+            this.cursor_ax.Size = new System.Drawing.Size(26, 13);
+            this.cursor_ax.TabIndex = 34;
+            this.cursor_ax.Text = "Ch1";
+            // 
+            // cursor_ax_text
+            // 
+            this.cursor_ax_text.AutoSize = true;
+            this.cursor_ax_text.Location = new System.Drawing.Point(0, 2);
+            this.cursor_ax_text.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.cursor_ax_text.Name = "cursor_ax_text";
+            this.cursor_ax_text.Size = new System.Drawing.Size(24, 13);
+            this.cursor_ax_text.TabIndex = 33;
+            this.cursor_ax_text.Text = "AX:";
+            // 
+            // cursor_by
+            // 
+            this.cursor_by.AutoSize = true;
+            this.cursor_by.Location = new System.Drawing.Point(28, 76);
+            this.cursor_by.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.cursor_by.Name = "cursor_by";
+            this.cursor_by.Size = new System.Drawing.Size(26, 13);
+            this.cursor_by.TabIndex = 42;
+            this.cursor_by.Text = "Ch1";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(0, 76);
+            this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(24, 13);
+            this.label14.TabIndex = 41;
+            this.label14.Text = "BY:";
+            // 
+            // cursor_ay
+            // 
+            this.cursor_ay.AutoSize = true;
+            this.cursor_ay.Location = new System.Drawing.Point(28, 52);
+            this.cursor_ay.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.cursor_ay.Name = "cursor_ay";
+            this.cursor_ay.Size = new System.Drawing.Size(26, 13);
+            this.cursor_ay.TabIndex = 40;
+            this.cursor_ay.Text = "Ch1";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(0, 52);
+            this.label17.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(24, 13);
+            this.label17.TabIndex = 39;
+            this.label17.Text = "AY:";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(132, 26);
+            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(41, 13);
+            this.label8.TabIndex = 43;
+            this.label8.Text = "BY-AY:";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(132, 52);
+            this.label16.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(36, 13);
+            this.label16.TabIndex = 44;
+            this.label16.Text = "1/|dx|:";
+            // 
+            // y_diff
+            // 
+            this.y_diff.AutoSize = true;
+            this.y_diff.Location = new System.Drawing.Point(177, 26);
+            this.y_diff.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.y_diff.Name = "y_diff";
+            this.y_diff.Size = new System.Drawing.Size(26, 13);
+            this.y_diff.TabIndex = 45;
+            this.y_diff.Text = "Ch1";
+            // 
+            // freq
+            // 
+            this.freq.AutoSize = true;
+            this.freq.Location = new System.Drawing.Point(177, 52);
+            this.freq.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.freq.Name = "freq";
+            this.freq.Size = new System.Drawing.Size(26, 13);
+            this.freq.TabIndex = 46;
+            this.freq.Text = "Ch1";
+            // 
+            // cursor_panel
+            // 
+            this.cursor_panel.Controls.Add(this.freq);
+            this.cursor_panel.Controls.Add(this.y_diff);
+            this.cursor_panel.Controls.Add(this.label16);
+            this.cursor_panel.Controls.Add(this.label8);
+            this.cursor_panel.Controls.Add(this.cursor_by);
+            this.cursor_panel.Controls.Add(this.label14);
+            this.cursor_panel.Controls.Add(this.cursor_ay);
+            this.cursor_panel.Controls.Add(this.label17);
+            this.cursor_panel.Controls.Add(this.x_diff);
+            this.cursor_panel.Controls.Add(this.label6);
+            this.cursor_panel.Controls.Add(this.cursor_bx);
+            this.cursor_panel.Controls.Add(this.cursor_bx_text);
+            this.cursor_panel.Controls.Add(this.cursor_ax);
+            this.cursor_panel.Controls.Add(this.cursor_ax_text);
+            this.cursor_panel.Location = new System.Drawing.Point(314, 382);
+            this.cursor_panel.Name = "cursor_panel";
+            this.cursor_panel.Size = new System.Drawing.Size(239, 117);
+            this.cursor_panel.TabIndex = 47;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(25, 410);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(56, 13);
+            this.label4.TabIndex = 48;
+            this.label4.Text = "COM Port:";
+            // 
+            // com_conn
+            // 
+            this.com_conn.Location = new System.Drawing.Point(132, 436);
+            this.com_conn.Name = "com_conn";
+            this.com_conn.Size = new System.Drawing.Size(75, 23);
+            this.com_conn.TabIndex = 49;
+            this.com_conn.Text = "Connect";
+            this.com_conn.UseVisualStyleBackColor = true;
+            this.com_conn.Click += new System.EventHandler(this.com_conn_Click);
+            // 
+            // com_port_list
+            // 
+            this.com_port_list.FormattingEnabled = true;
+            this.com_port_list.Location = new System.Drawing.Point(28, 436);
+            this.com_port_list.Margin = new System.Windows.Forms.Padding(2);
+            this.com_port_list.Name = "com_port_list";
+            this.com_port_list.Size = new System.Drawing.Size(82, 21);
+            this.com_port_list.TabIndex = 50;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(809, 506);
+            this.Controls.Add(this.com_port_list);
+            this.Controls.Add(this.com_conn);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.cursor_panel);
+            this.Controls.Add(this.cursor_select_axix);
+            this.Controls.Add(this.cursor_a_b);
+            this.Controls.Add(this.cursor_value);
+            this.Controls.Add(this.cursor_enable);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.time_div_down);
             this.Controls.Add(this.time_div_up);
@@ -415,11 +680,11 @@ namespace mini_scope_pc
             this.Controls.Add(this.label10);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label9);
-            this.Controls.Add(this.label8);
+            this.Controls.Add(this.avg_value);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.label6);
+            this.Controls.Add(this.max_value);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
+            this.Controls.Add(this.min_value);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.coupling);
@@ -432,6 +697,9 @@ namespace mini_scope_pc
             ((System.ComponentModel.ISupportInitialize)(this.voltage_offset_track)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cursor_value)).EndInit();
+            this.cursor_panel.ResumeLayout(false);
+            this.cursor_panel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -445,11 +713,11 @@ namespace mini_scope_pc
         private System.Windows.Forms.ComboBox coupling;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label min_value;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label max_value;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label avg_value;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label10;
@@ -469,6 +737,29 @@ namespace mini_scope_pc
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label time_div;
         private System.Windows.Forms.Label voltage_div;
+        private System.Windows.Forms.CheckBox cursor_enable;
+        private System.Windows.Forms.TrackBar cursor_value;
+        private System.Windows.Forms.Button cursor_a_b;
+        private System.Windows.Forms.Button cursor_select_axix;
+        private System.Windows.Forms.Label x_diff;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label cursor_bx;
+        private System.Windows.Forms.Label cursor_bx_text;
+        private System.Windows.Forms.Label cursor_ax;
+        private System.Windows.Forms.Label cursor_ax_text;
+        private System.Windows.Forms.Label cursor_by;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label cursor_ay;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label y_diff;
+        private System.Windows.Forms.Label freq;
+        private System.Windows.Forms.Panel cursor_panel;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button com_conn;
+        private System.Windows.Forms.ComboBox com_port_list;
+        private System.IO.Ports.SerialPort serialPort1;
     }
 }
 
