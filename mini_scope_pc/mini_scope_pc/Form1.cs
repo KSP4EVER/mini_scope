@@ -22,7 +22,11 @@ namespace mini_scope_pc
 
         //serial data buffer
         double[] buffer;
-        
+        int buff_pointer = 0;
+        bool ready;
+
+        delegate void serialCalback(string val);
+
         //volt divs in [V]
         double[] volt_divs = new double[10] { 0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1, 2, 5,10 };
         int volt_divs_pointer = 6;
@@ -183,31 +187,34 @@ namespace mini_scope_pc
             }
 
             //draw the graph from buffer
-
-            PointPairList pointPairs = new PointPairList();
-            
-            for (int i = 0; i < buffer.Length; i++)
+            if (ready)
             {
-                if(i % sampling_rate_div == 0) buffer[i] = Math.Sin(i * Math.PI / 180);
+                ready = false;
+                PointPairList pointPairs = new PointPairList();
+
+                for (int i = 0; i < buffer.Length; i++)
+                {
+
+
+                    double x = i - buffer.Length / 2;
+                    double y;
+
+                    //add voltage offset and probe control
+                    if (probe_div.Text == "1X") y = buffer[i] + (Convert.ToDouble(voltage_offset_track.Value) / 100.0);
+                    else y = 10 * buffer[i] + (Convert.ToDouble(voltage_offset_track.Value) / 100.0);
+                    //PointPair pointPair = new PointPair(x, y);
+
+                    pointPairs.Add(x, y);
+
+                }
+
+                zedGraphControl1.GraphPane.CurveList.Clear();
+
+                LineItem lineItem = graphPane.AddCurve("Sin Curve", pointPairs, Color.Yellow, SymbolType.None);
+                zedGraphControl1.AxisChange();
+                zedGraphControl1.Refresh();
                 
-                double x = i - buffer.Length/2;
-                double y;
-
-                //add voltage offset and probe control
-                if (probe_div.Text == "1X") y = buffer[i] + (Convert.ToDouble(voltage_offset_track.Value) / 100.0);
-                else y = 10 * buffer[i] + (Convert.ToDouble(voltage_offset_track.Value) / 100.0);
-                //PointPair pointPair = new PointPair(x, y);
-
-                pointPairs.Add(x,y);
-            
             }
-
-            zedGraphControl1.GraphPane.CurveList.Clear();
-
-            LineItem lineItem = graphPane.AddCurve("Sin Curve", pointPairs, Color.Yellow, SymbolType.None);
-            zedGraphControl1.AxisChange();
-            zedGraphControl1.Refresh();
-
             //calculate avg min and max value
             max_value.Text = buffer.Max().ToString() + " V";
             min_value.Text = buffer.Min().ToString() + " V";
@@ -279,6 +286,7 @@ namespace mini_scope_pc
             switch (time_divs[time_divs_pointer]) 
             {
                 case 0.01:  buffer = new double[120];
+                    sampling_rate_div = 1;
                     break;
                 case 0.02:
                     buffer = new double[240];
@@ -354,6 +362,7 @@ namespace mini_scope_pc
             {
                 case 0.01:
                     buffer = new double[120];
+                    sampling_rate_div = 1;
                     break;
                 case 0.02:
                     buffer = new double[240];
@@ -442,7 +451,37 @@ namespace mini_scope_pc
 
         private void com_conn_Click(object sender, EventArgs e)
         {
-            
+            serialPort1.BaudRate = 9600;
+            serialPort1.DataBits = 8;
+            serialPort1.StopBits = System.IO.Ports.StopBits.One;
+            serialPort1.Parity = System.IO.Ports.Parity.None;
+            serialPort1.Handshake = System.IO.Ports.Handshake.None;
+            serialPort1.PortName = com_port_list.Text;
+            serialPort1.Open();
+            serialPort1.Write("0");
+        }
+
+        private void serialPort1_DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
+        {
+            if (buff_pointer < buffer.Length)
+            {
+
+                //buffer[buff_pointer] = Convert.ToDouble(serialPort1.ReadLine()) / 4096;
+                string input = serialPort1.ReadLine();
+                buffer[buff_pointer] = Double.Parse(input);
+                buff_pointer++;
+                serialPort1.DiscardInBuffer();
+            }
+            else 
+            {
+                buff_pointer = 0;
+                ready = true;
+            }
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            serialPort1.Close();
         }
 
 
