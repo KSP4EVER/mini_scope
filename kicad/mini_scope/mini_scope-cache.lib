@@ -1,0 +1,60 @@
+EESchema-LIBRARY Version 2.4
+#encoding utf-8
+#
+# Device_D_Schottky
+#
+DEF Device_D_Schottky D 0 40 N N 1 F N
+F0 "D" 0 100 50 H V C CNN
+F1 "Device_D_Schottky" 0 -100 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ TO-???*
+ *_Diode_*
+ *SingleDiode*
+ D_*
+$ENDFPLIST
+DRAW
+P 2 0 1 0 50 0 -50 0 N
+P 4 0 1 10 50 50 50 -50 -50 0 50 50 N
+P 6 0 1 10 -75 25 -75 50 -50 50 -50 -50 -25 -50 -25 -25 N
+X K 1 -150 0 100 R 50 50 1 1 P
+X A 2 150 0 100 L 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# Device_R
+#
+DEF Device_R R 0 0 N Y 1 F N
+F0 "R" 80 0 50 V V C CNN
+F1 "Device_R" 0 0 50 V V C CNN
+F2 "" -70 0 50 V I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ R_*
+$ENDFPLIST
+DRAW
+S -40 -100 40 100 0 1 10 N
+X ~ 1 0 150 50 D 50 50 1 1 P
+X ~ 2 0 -150 50 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# lib1_ISL28134
+#
+DEF lib1_ISL28134 U 0 40 Y Y 1 F N
+F0 "U" -350 300 50 H V C CNN
+F1 "lib1_ISL28134" -350 300 50 H V C CNN
+F2 "" -350 300 50 H I C CNN
+F3 "" -350 300 50 H I C CNN
+DRAW
+P 5 0 1 0 400 0 50 -150 -200 -250 -200 250 400 0 f
+X - 2 -300 -100 100 R 50 50 1 1 I
+X + 3 -300 100 100 R 50 50 1 1 I
+X V- 4 50 -250 100 U 50 50 1 1 W
+X Vout 6 500 0 100 L 50 50 1 1 O
+X V+ 7 50 250 100 D 50 50 1 1 W
+ENDDRAW
+ENDDEF
+#
+#End Library

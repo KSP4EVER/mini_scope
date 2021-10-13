@@ -166,8 +166,8 @@ namespace mini_scope_pc
                 else cursor_bx.Text = display_cursor_value_bx.ToString() + " ms";
 
                 //cursor A Y axis
-                if ((display_cursor_value_ay < 1)&&(display_cursor_value_ay > -1)) cursor_ay.Text = (display_cursor_value_ay * 1000).ToString() + " mV";
-                else cursor_ay.Text = display_cursor_value_ay.ToString() + " V";
+                if ((display_cursor_value_ay < 1)&&(display_cursor_value_ay > -1)) cursor_ay.Text = Math.Round((display_cursor_value_ay * 1000),3).ToString() + " mV";
+                else cursor_ay.Text = Math.Round(display_cursor_value_ay,3).ToString() + " V";
 
                 //cursor B X axis
                 if ((display_cursor_value_by < 1) && (display_cursor_value_by > -1)) cursor_by.Text = (display_cursor_value_by * 1000).ToString() + " mV";
@@ -178,8 +178,8 @@ namespace mini_scope_pc
                 else x_diff.Text = (display_cursor_value_bx - display_cursor_value_ax).ToString() + " ms";
 
                 //cursor B A difference Y axis
-                if (((display_cursor_value_by - display_cursor_value_ay) < 1) && ((display_cursor_value_by - display_cursor_value_ay) > -1)) y_diff.Text = ((display_cursor_value_by - display_cursor_value_ay) * 1000).ToString() + " mV";
-                else y_diff.Text = (display_cursor_value_by - display_cursor_value_ay).ToString() + " V";
+                if (((display_cursor_value_by - display_cursor_value_ay) < 1) && ((display_cursor_value_by - display_cursor_value_ay) > -1)) y_diff.Text = Math.Round(((display_cursor_value_by - display_cursor_value_ay) * 1000),3).ToString() + " mV";
+                else y_diff.Text = Math.Round((display_cursor_value_by - display_cursor_value_ay),3).ToString() + " V";
 
                 //cursor B A difference X axis -> frequency
                 if (Math.Abs(1 / (display_cursor_value_bx - display_cursor_value_ax)) > 1) freq.Text = Math.Round(Math.Abs(1 / (display_cursor_value_bx - display_cursor_value_ax)),3).ToString() + " kHz";
@@ -187,7 +187,7 @@ namespace mini_scope_pc
             }
 
             //draw the graph from buffer
-            if (ready)
+            if (true)
             {
                 ready = false;
                 PointPairList pointPairs = new PointPairList();
@@ -195,7 +195,7 @@ namespace mini_scope_pc
                 for (int i = 0; i < buffer.Length; i++)
                 {
 
-
+                    buffer[i] = Math.Sin(i * Math.PI / 180.0);
                     double x = i - buffer.Length / 2;
                     double y;
 
@@ -211,10 +211,11 @@ namespace mini_scope_pc
                 zedGraphControl1.GraphPane.CurveList.Clear();
 
                 LineItem lineItem = graphPane.AddCurve("Sin Curve", pointPairs, Color.Yellow, SymbolType.None);
-                zedGraphControl1.AxisChange();
-                zedGraphControl1.Refresh();
-                
             }
+    
+            zedGraphControl1.AxisChange();
+            zedGraphControl1.Refresh();
+
             //calculate avg min and max value
             max_value.Text = buffer.Max().ToString() + " V";
             min_value.Text = buffer.Min().ToString() + " V";
@@ -451,37 +452,51 @@ namespace mini_scope_pc
 
         private void com_conn_Click(object sender, EventArgs e)
         {
-            serialPort1.BaudRate = 9600;
-            serialPort1.DataBits = 8;
-            serialPort1.StopBits = System.IO.Ports.StopBits.One;
-            serialPort1.Parity = System.IO.Ports.Parity.None;
-            serialPort1.Handshake = System.IO.Ports.Handshake.None;
-            serialPort1.PortName = com_port_list.Text;
-            serialPort1.Open();
-            serialPort1.Write("0");
+            if (!serialPort1.IsOpen)
+            {
+                serialPort1.BaudRate = 9600;
+                serialPort1.DataBits = 8;
+                serialPort1.StopBits = System.IO.Ports.StopBits.One;
+                serialPort1.Parity = System.IO.Ports.Parity.None;
+                serialPort1.Handshake = System.IO.Ports.Handshake.None;
+                serialPort1.PortName = com_port_list.Text;
+                serialPort1.Open();
+                serialPort1.Write("0");
+                com_conn.Text = "Disconnect";
+            }
+            else 
+            {
+                com_conn.Text = "Connect";
+                serialPort1.Close();
+            }
         }
 
         private void serialPort1_DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
         {
-            if (buff_pointer < buffer.Length)
+            try
             {
+                if (buff_pointer < buffer.Length)
+                {
+                    //buffer[buff_pointer] = Convert.ToDouble(serialPort1.ReadLine()) / 4096;
 
-                //buffer[buff_pointer] = Convert.ToDouble(serialPort1.ReadLine()) / 4096;
-                string input = serialPort1.ReadLine();
-                buffer[buff_pointer] = Double.Parse(input);
-                buff_pointer++;
-                serialPort1.DiscardInBuffer();
+                    string input = serialPort1.ReadLine();
+
+                    //buffer[buff_pointer] = Double.Parse(input);
+                    if (Double.TryParse(input, out buffer[buff_pointer]) == true)
+                        buff_pointer++;
+                }
+                else
+                {
+                    buff_pointer = 0;
+                    ready = true;
+                }
             }
-            else 
-            {
-                buff_pointer = 0;
-                ready = true;
-            }
+            catch { }
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            serialPort1.Close();
+            if(serialPort1.IsOpen)serialPort1.Close();
         }
 
 

@@ -1,0 +1,131 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L lib1:ISL28134 U?
+U 1 1 61670AA2
+P 4000 2200
+F 0 "U?" H 3600 2600 50  0000 L CNN
+F 1 "ISL28134" H 3750 2500 50  0000 C CNN
+F 2 "" H 3650 2500 50  0001 C CNN
+F 3 "" H 3650 2500 50  0001 C CNN
+	1    4000 2200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 6167226A
+P 2650 2100
+F 0 "R?" V 2443 2100 50  0000 C CNN
+F 1 "R" V 2534 2100 50  0000 C CNN
+F 2 "" V 2580 2100 50  0001 C CNN
+F 3 "~" H 2650 2100 50  0001 C CNN
+	1    2650 2100
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:D_Schottky D?
+U 1 1 61672D5A
+P 3000 1750
+F 0 "D?" V 2954 1830 50  0000 L CNN
+F 1 "D_Schottky" V 3045 1830 50  0000 L CNN
+F 2 "" H 3000 1750 50  0001 C CNN
+F 3 "~" H 3000 1750 50  0001 C CNN
+	1    3000 1750
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:D_Schottky D?
+U 1 1 616737BC
+P 3000 2550
+F 0 "D?" V 2954 2630 50  0000 L CNN
+F 1 "D_Schottky" V 3045 2630 50  0000 L CNN
+F 2 "" H 3000 2550 50  0001 C CNN
+F 3 "~" H 3000 2550 50  0001 C CNN
+	1    3000 2550
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	3000 1900 3000 2400
+Wire Wire Line
+	2800 2100 3700 2100
+Wire Wire Line
+	3000 1600 3000 1500
+Wire Wire Line
+	3000 1500 4050 1500
+Wire Wire Line
+	4050 1500 4050 1950
+Wire Wire Line
+	4050 2450 4050 2900
+Wire Wire Line
+	4050 2900 3000 2900
+Wire Wire Line
+	3000 2900 3000 2700
+$Comp
+L Device:R R?
+U 1 1 61678563
+P 4250 2700
+F 0 "R?" V 4043 2700 50  0000 C CNN
+F 1 "R" V 4134 2700 50  0000 C CNN
+F 2 "" V 4180 2700 50  0001 C CNN
+F 3 "~" H 4250 2700 50  0001 C CNN
+	1    4250 2700
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4400 2700 4700 2700
+Wire Wire Line
+	4700 2700 4700 2200
+Wire Wire Line
+	4700 2200 4500 2200
+Wire Wire Line
+	4100 2700 3550 2700
+Wire Wire Line
+	3550 2700 3550 2300
+Wire Wire Line
+	3550 2300 3700 2300
+$Comp
+L Device:R R?
+U 1 1 61678D12
+P 5150 2450
+F 0 "R?" V 4943 2450 50  0000 C CNN
+F 1 "R" V 5034 2450 50  0000 C CNN
+F 2 "" V 5080 2450 50  0001 C CNN
+F 3 "~" H 5150 2450 50  0001 C CNN
+	1    5150 2450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5150 2300 5150 2200
+Wire Wire Line
+	5150 2200 4700 2200
+Connection ~ 4700 2200
+Wire Wire Line
+	5150 2600 5150 2900
+Wire Wire Line
+	5150 2900 4050 2900
+Connection ~ 4050 2900
+$Comp
+L Device:R R?
+U 1 1 616798DC
+P 1100 2550
+F 0 "R?" V 893 2550 50  0000 C CNN
+F 1 "R" V 984 2550 50  0000 C CNN
+F 2 "" V 1030 2550 50  0001 C CNN
+F 3 "~" H 1100 2550 50  0001 C CNN
+	1    1100 2550
+	1    0    0    -1  
+$EndComp
+$EndSCHEMATC
