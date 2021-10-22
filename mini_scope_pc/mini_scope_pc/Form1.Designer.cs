@@ -44,7 +44,7 @@ namespace mini_scope_pc
             this.label7 = new System.Windows.Forms.Label();
             this.avg_value = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.trigger_select = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.trigger_lvl = new System.Windows.Forms.Label();
@@ -85,17 +85,21 @@ namespace mini_scope_pc
             this.com_conn = new System.Windows.Forms.Button();
             this.com_port_list = new System.Windows.Forms.ComboBox();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
+            this.save_graph = new System.Windows.Forms.Panel();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.print_screen = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.voltage_offset_track)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cursor_value)).BeginInit();
             this.cursor_panel.SuspendLayout();
+            this.save_graph.SuspendLayout();
             this.SuspendLayout();
             // 
             // zedGraphControl1
             // 
             this.zedGraphControl1.BackColor = System.Drawing.Color.Black;
-            this.zedGraphControl1.Location = new System.Drawing.Point(0, 14);
+            this.zedGraphControl1.Location = new System.Drawing.Point(9, 10);
             this.zedGraphControl1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.zedGraphControl1.Name = "zedGraphControl1";
             this.zedGraphControl1.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -106,12 +110,12 @@ namespace mini_scope_pc
             this.zedGraphControl1.ScrollMinX = 0D;
             this.zedGraphControl1.ScrollMinY = 0D;
             this.zedGraphControl1.ScrollMinY2 = 0D;
-            this.zedGraphControl1.Size = new System.Drawing.Size(582, 360);
+            this.zedGraphControl1.Size = new System.Drawing.Size(706, 504);
             this.zedGraphControl1.TabIndex = 0;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(588, 8);
+            this.button1.Location = new System.Drawing.Point(731, 4);
             this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(204, 47);
@@ -129,7 +133,7 @@ namespace mini_scope_pc
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(588, 151);
+            this.label1.Location = new System.Drawing.Point(727, 147);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(26, 13);
@@ -142,7 +146,7 @@ namespace mini_scope_pc
             this.coupling.Items.AddRange(new object[] {
             "DC",
             "AC"});
-            this.coupling.Location = new System.Drawing.Point(642, 202);
+            this.coupling.Location = new System.Drawing.Point(781, 198);
             this.coupling.Margin = new System.Windows.Forms.Padding(2);
             this.coupling.Name = "coupling";
             this.coupling.Size = new System.Drawing.Size(82, 21);
@@ -153,7 +157,7 @@ namespace mini_scope_pc
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(588, 204);
+            this.label2.Location = new System.Drawing.Point(727, 200);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(51, 13);
@@ -163,90 +167,97 @@ namespace mini_scope_pc
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(25, 376);
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(23, 517);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(27, 13);
+            this.label3.Size = new System.Drawing.Size(53, 25);
             this.label3.TabIndex = 5;
             this.label3.Text = "Min:";
             // 
             // min_value
             // 
             this.min_value.AutoSize = true;
-            this.min_value.Location = new System.Drawing.Point(54, 376);
+            this.min_value.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.min_value.Location = new System.Drawing.Point(72, 517);
             this.min_value.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.min_value.Name = "min_value";
-            this.min_value.Size = new System.Drawing.Size(26, 13);
+            this.min_value.Size = new System.Drawing.Size(51, 25);
             this.min_value.TabIndex = 6;
             this.min_value.Text = "Ch1";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(97, 376);
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(127, 517);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(30, 13);
+            this.label5.Size = new System.Drawing.Size(59, 25);
             this.label5.TabIndex = 7;
             this.label5.Text = "Max:";
             // 
             // max_value
             // 
             this.max_value.AutoSize = true;
-            this.max_value.Location = new System.Drawing.Point(129, 376);
+            this.max_value.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.max_value.Location = new System.Drawing.Point(181, 517);
             this.max_value.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.max_value.Name = "max_value";
-            this.max_value.Size = new System.Drawing.Size(26, 13);
+            this.max_value.Size = new System.Drawing.Size(51, 25);
             this.max_value.TabIndex = 8;
             this.max_value.Text = "Ch1";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(162, 376);
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(245, 517);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(29, 13);
+            this.label7.Size = new System.Drawing.Size(55, 25);
             this.label7.TabIndex = 9;
             this.label7.Text = "Avg:";
             // 
             // avg_value
             // 
             this.avg_value.AutoSize = true;
-            this.avg_value.Location = new System.Drawing.Point(195, 376);
+            this.avg_value.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.avg_value.Location = new System.Drawing.Point(295, 517);
             this.avg_value.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.avg_value.Name = "avg_value";
-            this.avg_value.Size = new System.Drawing.Size(26, 13);
+            this.avg_value.Size = new System.Drawing.Size(51, 25);
             this.avg_value.TabIndex = 10;
             this.avg_value.Text = "Ch1";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(588, 235);
+            this.label9.Location = new System.Drawing.Point(727, 231);
             this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(40, 13);
             this.label9.TabIndex = 11;
             this.label9.Text = "Tigger:";
             // 
-            // comboBox1
+            // trigger_select
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.trigger_select.FormattingEnabled = true;
+            this.trigger_select.Items.AddRange(new object[] {
             "Rising",
             "Falling"});
-            this.comboBox1.Location = new System.Drawing.Point(642, 233);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(82, 21);
-            this.comboBox1.TabIndex = 12;
-            this.comboBox1.Text = "Rising";
+            this.trigger_select.Location = new System.Drawing.Point(781, 229);
+            this.trigger_select.Margin = new System.Windows.Forms.Padding(2);
+            this.trigger_select.Name = "trigger_select";
+            this.trigger_select.Size = new System.Drawing.Size(82, 21);
+            this.trigger_select.TabIndex = 12;
+            this.trigger_select.Text = "Rising";
+            this.trigger_select.SelectedIndexChanged += new System.EventHandler(this.trigger_select_SelectedIndexChanged);
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(588, 272);
+            this.label10.Location = new System.Drawing.Point(727, 268);
             this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(65, 13);
@@ -256,7 +267,7 @@ namespace mini_scope_pc
             // trackBar1
             // 
             this.trackBar1.LargeChange = 10;
-            this.trackBar1.Location = new System.Drawing.Point(591, 300);
+            this.trackBar1.Location = new System.Drawing.Point(730, 296);
             this.trackBar1.Margin = new System.Windows.Forms.Padding(2);
             this.trackBar1.Maximum = 2500;
             this.trackBar1.Minimum = -2500;
@@ -268,7 +279,7 @@ namespace mini_scope_pc
             // trigger_lvl
             // 
             this.trigger_lvl.AutoSize = true;
-            this.trigger_lvl.Location = new System.Drawing.Point(653, 272);
+            this.trigger_lvl.Location = new System.Drawing.Point(792, 268);
             this.trigger_lvl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.trigger_lvl.Name = "trigger_lvl";
             this.trigger_lvl.Size = new System.Drawing.Size(23, 13);
@@ -278,7 +289,7 @@ namespace mini_scope_pc
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(588, 174);
+            this.label11.Location = new System.Drawing.Point(727, 170);
             this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(38, 13);
@@ -291,7 +302,7 @@ namespace mini_scope_pc
             this.probe_div.Items.AddRange(new object[] {
             "1X",
             "10X"});
-            this.probe_div.Location = new System.Drawing.Point(642, 171);
+            this.probe_div.Location = new System.Drawing.Point(781, 167);
             this.probe_div.Margin = new System.Windows.Forms.Padding(2);
             this.probe_div.Name = "probe_div";
             this.probe_div.Size = new System.Drawing.Size(82, 21);
@@ -301,7 +312,7 @@ namespace mini_scope_pc
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(588, 72);
+            this.label12.Location = new System.Drawing.Point(727, 68);
             this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(49, 13);
@@ -311,7 +322,7 @@ namespace mini_scope_pc
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(588, 118);
+            this.label13.Location = new System.Drawing.Point(727, 114);
             this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(62, 13);
@@ -321,7 +332,7 @@ namespace mini_scope_pc
             // voltage_offset
             // 
             this.voltage_offset.AutoSize = true;
-            this.voltage_offset.Location = new System.Drawing.Point(667, 336);
+            this.voltage_offset.Location = new System.Drawing.Point(806, 332);
             this.voltage_offset.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.voltage_offset.Name = "voltage_offset";
             this.voltage_offset.Size = new System.Drawing.Size(23, 13);
@@ -331,7 +342,7 @@ namespace mini_scope_pc
             // voltage_offset_track
             // 
             this.voltage_offset_track.LargeChange = 10;
-            this.voltage_offset_track.Location = new System.Drawing.Point(591, 364);
+            this.voltage_offset_track.Location = new System.Drawing.Point(730, 360);
             this.voltage_offset_track.Margin = new System.Windows.Forms.Padding(2);
             this.voltage_offset_track.Maximum = 2500;
             this.voltage_offset_track.Minimum = -2500;
@@ -343,7 +354,7 @@ namespace mini_scope_pc
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(588, 336);
+            this.label15.Location = new System.Drawing.Point(727, 332);
             this.label15.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(75, 13);
@@ -352,7 +363,7 @@ namespace mini_scope_pc
             // 
             // volt_div_up
             // 
-            this.volt_div_up.Location = new System.Drawing.Point(670, 108);
+            this.volt_div_up.Location = new System.Drawing.Point(809, 104);
             this.volt_div_up.Name = "volt_div_up";
             this.volt_div_up.Size = new System.Drawing.Size(54, 33);
             this.volt_div_up.TabIndex = 24;
@@ -362,7 +373,7 @@ namespace mini_scope_pc
             // 
             // volt_div_down
             // 
-            this.volt_div_down.Location = new System.Drawing.Point(730, 108);
+            this.volt_div_down.Location = new System.Drawing.Point(869, 104);
             this.volt_div_down.Name = "volt_div_down";
             this.volt_div_down.Size = new System.Drawing.Size(54, 33);
             this.volt_div_down.TabIndex = 25;
@@ -372,7 +383,7 @@ namespace mini_scope_pc
             // 
             // time_div_down
             // 
-            this.time_div_down.Location = new System.Drawing.Point(730, 62);
+            this.time_div_down.Location = new System.Drawing.Point(869, 58);
             this.time_div_down.Name = "time_div_down";
             this.time_div_down.Size = new System.Drawing.Size(54, 33);
             this.time_div_down.TabIndex = 27;
@@ -382,7 +393,7 @@ namespace mini_scope_pc
             // 
             // time_div_up
             // 
-            this.time_div_up.Location = new System.Drawing.Point(670, 62);
+            this.time_div_up.Location = new System.Drawing.Point(809, 58);
             this.time_div_up.Name = "time_div_up";
             this.time_div_up.Size = new System.Drawing.Size(54, 33);
             this.time_div_up.TabIndex = 26;
@@ -395,33 +406,35 @@ namespace mini_scope_pc
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.Controls.Add(this.time_div);
             this.panel1.Controls.Add(this.voltage_div);
-            this.panel1.Location = new System.Drawing.Point(12, 23);
+            this.panel1.Location = new System.Drawing.Point(18, 18);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(556, 18);
+            this.panel1.Size = new System.Drawing.Size(564, 29);
             this.panel1.TabIndex = 28;
             // 
             // time_div
             // 
             this.time_div.AutoSize = true;
-            this.time_div.Location = new System.Drawing.Point(74, 0);
+            this.time_div.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.time_div.Location = new System.Drawing.Point(155, 2);
             this.time_div.Name = "time_div";
-            this.time_div.Size = new System.Drawing.Size(41, 13);
+            this.time_div.Size = new System.Drawing.Size(82, 25);
             this.time_div.TabIndex = 1;
             this.time_div.Text = "label14";
             // 
             // voltage_div
             // 
             this.voltage_div.AutoSize = true;
-            this.voltage_div.Location = new System.Drawing.Point(0, 0);
+            this.voltage_div.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.voltage_div.Location = new System.Drawing.Point(25, 2);
             this.voltage_div.Name = "voltage_div";
-            this.voltage_div.Size = new System.Drawing.Size(41, 13);
+            this.voltage_div.Size = new System.Drawing.Size(82, 25);
             this.voltage_div.TabIndex = 0;
             this.voltage_div.Text = "label14";
             // 
             // cursor_enable
             // 
             this.cursor_enable.AutoSize = true;
-            this.cursor_enable.Location = new System.Drawing.Point(591, 414);
+            this.cursor_enable.Location = new System.Drawing.Point(730, 410);
             this.cursor_enable.Name = "cursor_enable";
             this.cursor_enable.Size = new System.Drawing.Size(56, 17);
             this.cursor_enable.TabIndex = 29;
@@ -432,7 +445,7 @@ namespace mini_scope_pc
             // cursor_value
             // 
             this.cursor_value.LargeChange = 10;
-            this.cursor_value.Location = new System.Drawing.Point(591, 450);
+            this.cursor_value.Location = new System.Drawing.Point(730, 446);
             this.cursor_value.Margin = new System.Windows.Forms.Padding(2);
             this.cursor_value.Maximum = 2500;
             this.cursor_value.Minimum = -2500;
@@ -443,7 +456,7 @@ namespace mini_scope_pc
             // 
             // cursor_a_b
             // 
-            this.cursor_a_b.Location = new System.Drawing.Point(649, 410);
+            this.cursor_a_b.Location = new System.Drawing.Point(788, 406);
             this.cursor_a_b.Name = "cursor_a_b";
             this.cursor_a_b.Size = new System.Drawing.Size(75, 23);
             this.cursor_a_b.TabIndex = 31;
@@ -453,7 +466,7 @@ namespace mini_scope_pc
             // 
             // cursor_select_axix
             // 
-            this.cursor_select_axix.Location = new System.Drawing.Point(730, 410);
+            this.cursor_select_axix.Location = new System.Drawing.Point(869, 406);
             this.cursor_select_axix.Name = "cursor_select_axix";
             this.cursor_select_axix.Size = new System.Drawing.Size(75, 23);
             this.cursor_select_axix.TabIndex = 32;
@@ -464,7 +477,8 @@ namespace mini_scope_pc
             // x_diff
             // 
             this.x_diff.AutoSize = true;
-            this.x_diff.Location = new System.Drawing.Point(177, 2);
+            this.x_diff.ForeColor = System.Drawing.Color.Yellow;
+            this.x_diff.Location = new System.Drawing.Point(40, 54);
             this.x_diff.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.x_diff.Name = "x_diff";
             this.x_diff.Size = new System.Drawing.Size(26, 13);
@@ -474,7 +488,8 @@ namespace mini_scope_pc
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(132, 2);
+            this.label6.ForeColor = System.Drawing.Color.Yellow;
+            this.label6.Location = new System.Drawing.Point(0, 54);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(41, 13);
@@ -484,7 +499,8 @@ namespace mini_scope_pc
             // cursor_bx
             // 
             this.cursor_bx.AutoSize = true;
-            this.cursor_bx.Location = new System.Drawing.Point(28, 26);
+            this.cursor_bx.ForeColor = System.Drawing.Color.Yellow;
+            this.cursor_bx.Location = new System.Drawing.Point(40, 15);
             this.cursor_bx.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.cursor_bx.Name = "cursor_bx";
             this.cursor_bx.Size = new System.Drawing.Size(26, 13);
@@ -494,7 +510,8 @@ namespace mini_scope_pc
             // cursor_bx_text
             // 
             this.cursor_bx_text.AutoSize = true;
-            this.cursor_bx_text.Location = new System.Drawing.Point(0, 26);
+            this.cursor_bx_text.ForeColor = System.Drawing.Color.Yellow;
+            this.cursor_bx_text.Location = new System.Drawing.Point(0, 15);
             this.cursor_bx_text.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.cursor_bx_text.Name = "cursor_bx_text";
             this.cursor_bx_text.Size = new System.Drawing.Size(24, 13);
@@ -504,7 +521,8 @@ namespace mini_scope_pc
             // cursor_ax
             // 
             this.cursor_ax.AutoSize = true;
-            this.cursor_ax.Location = new System.Drawing.Point(28, 2);
+            this.cursor_ax.ForeColor = System.Drawing.Color.Yellow;
+            this.cursor_ax.Location = new System.Drawing.Point(40, 2);
             this.cursor_ax.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.cursor_ax.Name = "cursor_ax";
             this.cursor_ax.Size = new System.Drawing.Size(26, 13);
@@ -514,6 +532,7 @@ namespace mini_scope_pc
             // cursor_ax_text
             // 
             this.cursor_ax_text.AutoSize = true;
+            this.cursor_ax_text.ForeColor = System.Drawing.Color.Yellow;
             this.cursor_ax_text.Location = new System.Drawing.Point(0, 2);
             this.cursor_ax_text.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.cursor_ax_text.Name = "cursor_ax_text";
@@ -524,7 +543,8 @@ namespace mini_scope_pc
             // cursor_by
             // 
             this.cursor_by.AutoSize = true;
-            this.cursor_by.Location = new System.Drawing.Point(28, 76);
+            this.cursor_by.ForeColor = System.Drawing.Color.Yellow;
+            this.cursor_by.Location = new System.Drawing.Point(40, 41);
             this.cursor_by.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.cursor_by.Name = "cursor_by";
             this.cursor_by.Size = new System.Drawing.Size(26, 13);
@@ -534,7 +554,8 @@ namespace mini_scope_pc
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(0, 76);
+            this.label14.ForeColor = System.Drawing.Color.Yellow;
+            this.label14.Location = new System.Drawing.Point(0, 41);
             this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(24, 13);
@@ -544,7 +565,8 @@ namespace mini_scope_pc
             // cursor_ay
             // 
             this.cursor_ay.AutoSize = true;
-            this.cursor_ay.Location = new System.Drawing.Point(28, 52);
+            this.cursor_ay.ForeColor = System.Drawing.Color.Yellow;
+            this.cursor_ay.Location = new System.Drawing.Point(40, 28);
             this.cursor_ay.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.cursor_ay.Name = "cursor_ay";
             this.cursor_ay.Size = new System.Drawing.Size(26, 13);
@@ -554,7 +576,8 @@ namespace mini_scope_pc
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(0, 52);
+            this.label17.ForeColor = System.Drawing.Color.Yellow;
+            this.label17.Location = new System.Drawing.Point(0, 28);
             this.label17.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(24, 13);
@@ -564,7 +587,8 @@ namespace mini_scope_pc
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(132, 26);
+            this.label8.ForeColor = System.Drawing.Color.Yellow;
+            this.label8.Location = new System.Drawing.Point(0, 67);
             this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(41, 13);
@@ -574,7 +598,8 @@ namespace mini_scope_pc
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(132, 52);
+            this.label16.ForeColor = System.Drawing.Color.Yellow;
+            this.label16.Location = new System.Drawing.Point(0, 80);
             this.label16.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(36, 13);
@@ -584,7 +609,8 @@ namespace mini_scope_pc
             // y_diff
             // 
             this.y_diff.AutoSize = true;
-            this.y_diff.Location = new System.Drawing.Point(177, 26);
+            this.y_diff.ForeColor = System.Drawing.Color.Yellow;
+            this.y_diff.Location = new System.Drawing.Point(40, 67);
             this.y_diff.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.y_diff.Name = "y_diff";
             this.y_diff.Size = new System.Drawing.Size(26, 13);
@@ -594,7 +620,8 @@ namespace mini_scope_pc
             // freq
             // 
             this.freq.AutoSize = true;
-            this.freq.Location = new System.Drawing.Point(177, 52);
+            this.freq.ForeColor = System.Drawing.Color.Yellow;
+            this.freq.Location = new System.Drawing.Point(40, 80);
             this.freq.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.freq.Name = "freq";
             this.freq.Size = new System.Drawing.Size(26, 13);
@@ -603,6 +630,8 @@ namespace mini_scope_pc
             // 
             // cursor_panel
             // 
+            this.cursor_panel.BackColor = System.Drawing.Color.Black;
+            this.cursor_panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.cursor_panel.Controls.Add(this.freq);
             this.cursor_panel.Controls.Add(this.y_diff);
             this.cursor_panel.Controls.Add(this.label16);
@@ -617,15 +646,15 @@ namespace mini_scope_pc
             this.cursor_panel.Controls.Add(this.cursor_bx_text);
             this.cursor_panel.Controls.Add(this.cursor_ax);
             this.cursor_panel.Controls.Add(this.cursor_ax_text);
-            this.cursor_panel.Location = new System.Drawing.Point(314, 382);
+            this.cursor_panel.Location = new System.Drawing.Point(39, 67);
             this.cursor_panel.Name = "cursor_panel";
-            this.cursor_panel.Size = new System.Drawing.Size(239, 117);
+            this.cursor_panel.Size = new System.Drawing.Size(98, 117);
             this.cursor_panel.TabIndex = 47;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(25, 410);
+            this.label4.Location = new System.Drawing.Point(746, 533);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(56, 13);
@@ -634,7 +663,7 @@ namespace mini_scope_pc
             // 
             // com_conn
             // 
-            this.com_conn.Location = new System.Drawing.Point(132, 436);
+            this.com_conn.Location = new System.Drawing.Point(853, 559);
             this.com_conn.Name = "com_conn";
             this.com_conn.Size = new System.Drawing.Size(75, 23);
             this.com_conn.TabIndex = 49;
@@ -645,7 +674,7 @@ namespace mini_scope_pc
             // com_port_list
             // 
             this.com_port_list.FormattingEnabled = true;
-            this.com_port_list.Location = new System.Drawing.Point(28, 436);
+            this.com_port_list.Location = new System.Drawing.Point(749, 559);
             this.com_port_list.Margin = new System.Windows.Forms.Padding(2);
             this.com_port_list.Name = "com_port_list";
             this.com_port_list.Size = new System.Drawing.Size(82, 21);
@@ -655,20 +684,49 @@ namespace mini_scope_pc
             // 
             this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
             // 
+            // save_graph
+            // 
+            this.save_graph.BackColor = System.Drawing.Color.Transparent;
+            this.save_graph.Controls.Add(this.cursor_panel);
+            this.save_graph.Controls.Add(this.panel1);
+            this.save_graph.Controls.Add(this.zedGraphControl1);
+            this.save_graph.Controls.Add(this.label3);
+            this.save_graph.Controls.Add(this.min_value);
+            this.save_graph.Controls.Add(this.label5);
+            this.save_graph.Controls.Add(this.max_value);
+            this.save_graph.Controls.Add(this.label7);
+            this.save_graph.Controls.Add(this.avg_value);
+            this.save_graph.Location = new System.Drawing.Point(3, 4);
+            this.save_graph.Name = "save_graph";
+            this.save_graph.Size = new System.Drawing.Size(719, 551);
+            this.save_graph.TabIndex = 51;
+            // 
+            // print_screen
+            // 
+            this.print_screen.BackColor = System.Drawing.Color.Transparent;
+            this.print_screen.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("print_screen.BackgroundImage")));
+            this.print_screen.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.print_screen.Location = new System.Drawing.Point(879, 167);
+            this.print_screen.Name = "print_screen";
+            this.print_screen.Size = new System.Drawing.Size(55, 46);
+            this.print_screen.TabIndex = 52;
+            this.print_screen.UseVisualStyleBackColor = false;
+            this.print_screen.Click += new System.EventHandler(this.print_screen_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(809, 506);
+            this.ClientSize = new System.Drawing.Size(946, 609);
+            this.Controls.Add(this.print_screen);
+            this.Controls.Add(this.save_graph);
             this.Controls.Add(this.com_port_list);
             this.Controls.Add(this.com_conn);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.cursor_panel);
             this.Controls.Add(this.cursor_select_axix);
             this.Controls.Add(this.cursor_a_b);
             this.Controls.Add(this.cursor_value);
             this.Controls.Add(this.cursor_enable);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.time_div_down);
             this.Controls.Add(this.time_div_up);
             this.Controls.Add(this.volt_div_down);
@@ -683,19 +741,12 @@ namespace mini_scope_pc
             this.Controls.Add(this.trigger_lvl);
             this.Controls.Add(this.trackBar1);
             this.Controls.Add(this.label10);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.trigger_select);
             this.Controls.Add(this.label9);
-            this.Controls.Add(this.avg_value);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.max_value);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.min_value);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.coupling);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.zedGraphControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "MiniScope";
@@ -707,6 +758,8 @@ namespace mini_scope_pc
             ((System.ComponentModel.ISupportInitialize)(this.cursor_value)).EndInit();
             this.cursor_panel.ResumeLayout(false);
             this.cursor_panel.PerformLayout();
+            this.save_graph.ResumeLayout(false);
+            this.save_graph.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -726,7 +779,7 @@ namespace mini_scope_pc
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label avg_value;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox trigger_select;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TrackBar trackBar1;
         private System.Windows.Forms.Label trigger_lvl;
@@ -767,6 +820,9 @@ namespace mini_scope_pc
         private System.Windows.Forms.Button com_conn;
         private System.Windows.Forms.ComboBox com_port_list;
         private System.IO.Ports.SerialPort serialPort1;
+        private System.Windows.Forms.Panel save_graph;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.Button print_screen;
     }
 }
 

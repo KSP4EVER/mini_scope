@@ -87,5 +87,8 @@
   <ItemGroup>
     <None Include="Resources\IMG_20210224_222917.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\print.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -67,6 +67,7 @@ namespace mini_scope_pc
             graphPane.YAxis.Scale.IsVisible = false;
             graphPane.YAxis.Title.IsVisible = false;
             graphPane.Legend.IsVisible = false;
+            
 
             //Voltage dim set for startup (1V/div)
             voltage_div.Text = volt_divs[volt_divs_pointer].ToString() + " V/div";
@@ -211,8 +212,10 @@ namespace mini_scope_pc
                 zedGraphControl1.GraphPane.CurveList.Clear();
 
                 LineItem lineItem = graphPane.AddCurve("Sin Curve", pointPairs, Color.Yellow, SymbolType.None);
+                lineItem.Line.Width = 3;
+                lineItem.Line.IsSmooth = true;
             }
-    
+            
             zedGraphControl1.AxisChange();
             zedGraphControl1.Refresh();
 
@@ -497,6 +500,36 @@ namespace mini_scope_pc
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             if(serialPort1.IsOpen)serialPort1.Close();
+        }
+
+        private void print_screen_Click(object sender, EventArgs e)
+        {
+            timer1.Enabled = false;
+            //select the file path to save picture
+            saveFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            saveFileDialog1.DefaultExt = "png";
+            saveFileDialog1.Filter = "png files (*.png)|*.png|All files (*.*)|*.*";
+            saveFileDialog1.ShowDialog();
+            
+            //set the cursor value to back for print
+            cursor_panel.SendToBack();
+            panel1.SendToBack();
+
+            //create and save the picture
+            Bitmap bmp = new Bitmap(save_graph.Width,save_graph.Height);
+            save_graph.DrawToBitmap(bmp, new Rectangle(0, 0, bmp.Width, bmp.Height));
+            bmp.Save(saveFileDialog1.FileName, System.Drawing.Imaging.ImageFormat.Png);
+
+            //reset the cursor value from print
+            cursor_panel.BringToFront();
+            panel1.BringToFront();
+
+            timer1.Enabled = true;
+        }
+
+        private void trigger_select_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
 
 
