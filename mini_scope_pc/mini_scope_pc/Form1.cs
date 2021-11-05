@@ -68,6 +68,7 @@ namespace mini_scope_pc
             graphPane.YAxis.Title.IsVisible = false;
             graphPane.Legend.IsVisible = false;
             
+            
 
             //Voltage dim set for startup (1V/div)
             voltage_div.Text = volt_divs[volt_divs_pointer].ToString() + " V/div";
@@ -212,7 +213,7 @@ namespace mini_scope_pc
                 zedGraphControl1.GraphPane.CurveList.Clear();
 
                 LineItem lineItem = graphPane.AddCurve("Sin Curve", pointPairs, Color.Yellow, SymbolType.None);
-                lineItem.Line.Width = 3;
+                lineItem.Line.Width = 2;
                 lineItem.Line.IsSmooth = true;
             }
             
@@ -220,8 +221,8 @@ namespace mini_scope_pc
             zedGraphControl1.Refresh();
 
             //calculate avg min and max value
-            max_value.Text = buffer.Max().ToString() + " V";
-            min_value.Text = buffer.Min().ToString() + " V";
+            max_value.Text = Math.Round(buffer.Max(),2).ToString() + " V";
+            min_value.Text = Math.Round(buffer.Min(),2).ToString() + " V";
             avg_value.Text = Math.Round(buffer.Average(),2).ToString() + " V";
             
         }
@@ -305,48 +306,48 @@ namespace mini_scope_pc
                     sampling_rate_div = 1;
                     break;
                 case 0.20:
-                    buffer = new double[2400];
-                    sampling_rate_div = 1;
-                    break;
-                case 0.50:
-                    buffer = new double[6000];
-                    sampling_rate_div = 1;
-                    break;
-                case 1.00:
-                    buffer = new double[12000];
-                    sampling_rate_div = 1;
-                    break;
-                case 2.00:
-                    buffer = new double[12000];
+                    buffer = new double[1200];
                     sampling_rate_div = 2;
                     break;
-                case 5.00:
-                    buffer = new double[12000];
+                case 0.50:
+                    buffer = new double[1200];
                     sampling_rate_div = 5;
                     break;
-                case 10.0:
-                    buffer = new double[12000];
+                case 1.00:
+                    buffer = new double[1200];
                     sampling_rate_div = 10;
                     break;
-                case 20.0:
-                    buffer = new double[12000];
+                case 2.00:
+                    buffer = new double[1200];
                     sampling_rate_div = 20;
                     break;
-                case 50.0:
-                    buffer = new double[12000];
+                case 5.00:
+                    buffer = new double[1200];
                     sampling_rate_div = 50;
                     break;
-                case 100.0:
-                    buffer = new double[12000];
+                case 10.0:
+                    buffer = new double[1200];
                     sampling_rate_div = 100;
                     break;
-                case 200.0:
-                    buffer = new double[12000];
+                case 20.0:
+                    buffer = new double[1200];
                     sampling_rate_div = 200;
                     break;
-                case 500.0:
-                    buffer = new double[12000];
+                case 50.0:
+                    buffer = new double[1200];
                     sampling_rate_div = 500;
+                    break;
+                case 100.0:
+                    buffer = new double[1200];
+                    sampling_rate_div = 1000;
+                    break;
+                case 200.0:
+                    buffer = new double[1200];
+                    sampling_rate_div = 2000;
+                    break;
+                case 500.0:
+                    buffer = new double[1200];
+                    sampling_rate_div = 5000;
                     break;
             }
 
@@ -362,6 +363,7 @@ namespace mini_scope_pc
             if (time_divs[time_divs_pointer] < 1.0) time_div.Text = (time_divs[time_divs_pointer] * 1000).ToString() + " us/div";
             else time_div.Text = (time_divs[time_divs_pointer]).ToString() + " ms/div";
 
+            //set buffer size
             switch (time_divs[time_divs_pointer])
             {
                 case 0.01:
@@ -381,48 +383,48 @@ namespace mini_scope_pc
                     sampling_rate_div = 1;
                     break;
                 case 0.20:
-                    buffer = new double[2400];
-                    sampling_rate_div = 1;
-                    break;
-                case 0.50:
-                    buffer = new double[6000];
-                    sampling_rate_div = 1;
-                    break;
-                case 1.00:
-                    buffer = new double[12000];
-                    sampling_rate_div = 1;
-                    break;
-                case 2.00:
-                    buffer = new double[12000];
+                    buffer = new double[1200];
                     sampling_rate_div = 2;
                     break;
-                case 5.00:
-                    buffer = new double[12000];
+                case 0.50:
+                    buffer = new double[1200];
                     sampling_rate_div = 5;
                     break;
-                case 10.0:
-                    buffer = new double[12000];
+                case 1.00:
+                    buffer = new double[1200];
                     sampling_rate_div = 10;
                     break;
-                case 20.0:
-                    buffer = new double[12000];
+                case 2.00:
+                    buffer = new double[1200];
                     sampling_rate_div = 20;
                     break;
-                case 50.0:
-                    buffer = new double[12000];
+                case 5.00:
+                    buffer = new double[1200];
                     sampling_rate_div = 50;
                     break;
-                case 100.0:
-                    buffer = new double[12000];
+                case 10.0:
+                    buffer = new double[1200];
                     sampling_rate_div = 100;
                     break;
-                case 200.0:
-                    buffer = new double[12000];
+                case 20.0:
+                    buffer = new double[1200];
                     sampling_rate_div = 200;
                     break;
-                case 500.0:
-                    buffer = new double[12000];
+                case 50.0:
+                    buffer = new double[1200];
                     sampling_rate_div = 500;
+                    break;
+                case 100.0:
+                    buffer = new double[1200];
+                    sampling_rate_div = 1000;
+                    break;
+                case 200.0:
+                    buffer = new double[1200];
+                    sampling_rate_div = 2000;
+                    break;
+                case 500.0:
+                    buffer = new double[1200];
+                    sampling_rate_div = 5000;
                     break;
             }
 
@@ -526,12 +528,6 @@ namespace mini_scope_pc
 
             timer1.Enabled = true;
         }
-
-        private void trigger_select_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
 
         //select A/B cursor
         private void cursor_a_b_Click(object sender, EventArgs e)

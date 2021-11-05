@@ -190,7 +190,7 @@ namespace mini_scope_pc
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(127, 517);
+            this.label5.Location = new System.Drawing.Point(168, 517);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(59, 25);
@@ -201,7 +201,7 @@ namespace mini_scope_pc
             // 
             this.max_value.AutoSize = true;
             this.max_value.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.max_value.Location = new System.Drawing.Point(181, 517);
+            this.max_value.Location = new System.Drawing.Point(222, 517);
             this.max_value.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.max_value.Name = "max_value";
             this.max_value.Size = new System.Drawing.Size(51, 25);
@@ -212,7 +212,7 @@ namespace mini_scope_pc
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(245, 517);
+            this.label7.Location = new System.Drawing.Point(330, 517);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(55, 25);
@@ -223,7 +223,7 @@ namespace mini_scope_pc
             // 
             this.avg_value.AutoSize = true;
             this.avg_value.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.avg_value.Location = new System.Drawing.Point(295, 517);
+            this.avg_value.Location = new System.Drawing.Point(389, 517);
             this.avg_value.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.avg_value.Name = "avg_value";
             this.avg_value.Size = new System.Drawing.Size(51, 25);
@@ -252,7 +252,6 @@ namespace mini_scope_pc
             this.trigger_select.Size = new System.Drawing.Size(82, 21);
             this.trigger_select.TabIndex = 12;
             this.trigger_select.Text = "Rising";
-            this.trigger_select.SelectedIndexChanged += new System.EventHandler(this.trigger_select_SelectedIndexChanged);
             // 
             // label10
             // 
@@ -646,9 +645,9 @@ namespace mini_scope_pc
             this.cursor_panel.Controls.Add(this.cursor_bx_text);
             this.cursor_panel.Controls.Add(this.cursor_ax);
             this.cursor_panel.Controls.Add(this.cursor_ax_text);
-            this.cursor_panel.Location = new System.Drawing.Point(39, 67);
+            this.cursor_panel.Location = new System.Drawing.Point(39, 64);
             this.cursor_panel.Name = "cursor_panel";
-            this.cursor_panel.Size = new System.Drawing.Size(98, 117);
+            this.cursor_panel.Size = new System.Drawing.Size(98, 99);
             this.cursor_panel.TabIndex = 47;
             // 
             // label4

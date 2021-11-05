@@ -1,0 +1,20 @@
+OPA340 OpAmp 2db
+https://hu.farnell.com/texas-instruments/opa340ua/op-amp-cmos-rri-o-smd-soic8-340/dp/3004969?st=opa340
+FT232RL 1db
+https://www.hestore.hu/prod_10024691.html
+BNC aljzat 1 db
+https://www.hestore.hu/prod_10034703.html
+Optocsatoló 2db
+https://hu.farnell.com/toshiba/tlp2761/optocoupler-digital-5kv-lsop-6/dp/2524298
+DC-DC converter 1db
+https://hu.farnell.com/murata-power-solutions/cre1s0505sc/dc-dc-converter-5v-0-2a/dp/2564440?ost=cre1s0505sc
+Relé 1db
+https://hu.farnell.com/omron-electronic-components/g5le-1-36-5dc/relay-spdt-250vac-30vdc-10a/dp/1798616?st=g5le-1
+Biztosíték 5db
+https://www.hestore.hu/prod_10039740.html
+Schottky dióda 2db
+https://www.hestore.hu/prod_10022242.html
+USB B mini 1db
+https://www.hestore.hu/prod_10024061.html
+Ferrite 2db
+https://www.hestore.hu/prod_10032786.html
