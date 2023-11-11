@@ -5,7 +5,7 @@ https://www.hestore.hu/prod_10024691.html
 BNC aljzat 1 db
 https://www.hestore.hu/prod_10034703.html
 Optocsatoló 2db
-https://hu.farnell.com/toshiba/tlp2761/optocoupler-digital-5kv-lsop-6/dp/2524298
+https://hu.farnell.com/toshiba/tlp2368-e-o/opencoupler-20mbps-open-coll-3/dp/2075569
 DC-DC converter 1db
 https://hu.farnell.com/murata-power-solutions/cre1s0505sc/dc-dc-converter-5v-0-2a/dp/2564440?ost=cre1s0505sc
 Relé 1db
@@ -14,7 +14,13 @@ Biztosíték 5db
 https://www.hestore.hu/prod_10039740.html
 Schottky dióda 2db
 https://www.hestore.hu/prod_10022242.html
+PWR Schottky 2db
+https://www.hestore.hu/prod_10042067.html
+dióda 1n4007 1db
+https://www.hestore.hu/prod_10000868.html
 USB B mini 1db
 https://www.hestore.hu/prod_10024061.html
 Ferrite 2db
 https://www.hestore.hu/prod_10032786.html
+ESD védődióda 1db
+https://www.hestore.hu/prod_10034399.html

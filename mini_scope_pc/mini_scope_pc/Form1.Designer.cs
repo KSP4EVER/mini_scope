@@ -88,6 +88,8 @@ namespace mini_scope_pc
             this.save_graph = new System.Windows.Forms.Panel();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.print_screen = new System.Windows.Forms.Button();
+            this.debug = new System.Windows.Forms.Label();
+            this.debug2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.voltage_offset_track)).BeginInit();
             this.panel1.SuspendLayout();
@@ -127,7 +129,7 @@ namespace mini_scope_pc
             // timer1
             // 
             this.timer1.Enabled = true;
-            this.timer1.Interval = 30;
+            this.timer1.Interval = 200;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // label1
@@ -252,6 +254,7 @@ namespace mini_scope_pc
             this.trigger_select.Size = new System.Drawing.Size(82, 21);
             this.trigger_select.TabIndex = 12;
             this.trigger_select.Text = "Rising";
+            this.trigger_select.SelectedIndexChanged += new System.EventHandler(this.trigger_select_SelectedIndexChanged);
             // 
             // label10
             // 
@@ -712,11 +715,35 @@ namespace mini_scope_pc
             this.print_screen.UseVisualStyleBackColor = false;
             this.print_screen.Click += new System.EventHandler(this.print_screen_Click);
             // 
+            // debug
+            // 
+            this.debug.AutoSize = true;
+            this.debug.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.debug.Location = new System.Drawing.Point(16, 559);
+            this.debug.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.debug.Name = "debug";
+            this.debug.Size = new System.Drawing.Size(51, 25);
+            this.debug.TabIndex = 53;
+            this.debug.Text = "Ch1";
+            // 
+            // debug2
+            // 
+            this.debug2.AutoSize = true;
+            this.debug2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.debug2.Location = new System.Drawing.Point(16, 584);
+            this.debug2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.debug2.Name = "debug2";
+            this.debug2.Size = new System.Drawing.Size(51, 25);
+            this.debug2.TabIndex = 54;
+            this.debug2.Text = "Ch1";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(946, 609);
+            this.Controls.Add(this.debug2);
+            this.Controls.Add(this.debug);
             this.Controls.Add(this.print_screen);
             this.Controls.Add(this.save_graph);
             this.Controls.Add(this.com_port_list);
@@ -822,6 +849,8 @@ namespace mini_scope_pc
         private System.Windows.Forms.Panel save_graph;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.Button print_screen;
+        private System.Windows.Forms.Label debug;
+        private System.Windows.Forms.Label debug2;
     }
 }
 

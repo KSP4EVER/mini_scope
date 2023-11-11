@@ -21,9 +21,9 @@ namespace mini_scope_pc
         LineObj trs_line;
 
         //serial data buffer
-        double[] buffer;
+        double[] buffer = new double[600];
         int buff_pointer = 0;
-        bool ready;
+        bool data_ready;
 
         delegate void serialCalback(string val);
 
@@ -32,11 +32,14 @@ namespace mini_scope_pc
         int volt_divs_pointer = 6;
 
         //time divs in [ms]
-        double[] time_divs = new double[15] {0.01, 0.02, 0.05, 0.10, 0.20, 0.50, 1,2,5,10,20,5,100,200,500 };
-        int time_divs_pointer = 6;
+        double[] time_divs = new double[13] { 0.05, 0.10, 0.20, 0.50, 1,2,5,10,20,5,100,200,500};
+        int time_divs_pointer = 4;
 
         //sampling rate div
         int sampling_rate_div = 1;
+
+        //AC / DC coupling AC ->true DC-> false
+        bool ac_dc = false;
 
         //cursor value
         double cursor_ax_value, cursor_ay_value, cursor_bx_value, cursor_by_value;
@@ -51,7 +54,7 @@ namespace mini_scope_pc
         public Form1()
         {
             InitializeComponent();
-
+            
             //init graph
             graphPane = zedGraphControl1.GraphPane;
             graphPane.Title.IsVisible = true;
@@ -69,7 +72,7 @@ namespace mini_scope_pc
             graphPane.Legend.IsVisible = false;
             
             
-
+            
             //Voltage dim set for startup (1V/div)
             voltage_div.Text = volt_divs[volt_divs_pointer].ToString() + " V/div";
             zedGraphControl1.GraphPane.YAxis.Scale.Min = -4 * volt_divs[volt_divs_pointer];
@@ -77,7 +80,6 @@ namespace mini_scope_pc
             graphPane.YAxis.Scale.MajorStep = volt_divs[volt_divs_pointer];
 
             //time div set 1ms/divs
-            buffer = new double[12000];
             time_div.Text = time_divs[time_divs_pointer].ToString() + " ms/div";
             zedGraphControl1.GraphPane.XAxis.Scale.Min = -1 * (buffer.Length / 2);
             zedGraphControl1.GraphPane.XAxis.Scale.Max =  1 * (buffer.Length / 2);
@@ -108,15 +110,17 @@ namespace mini_scope_pc
 
             for (int i = 0; i < buffer.Length; i++) 
             {
-                buffer[i] = rnd.NextDouble();
+                // buffer[i] = rnd.NextDouble();
+                buffer[i] = Math.Sin(i * Math.PI / 180.0);
                 double x = i;
                 double y = buffer[i];
                 PointPair pointPair = new PointPair(x, y);
-
+                
                 pointPairs.Add(pointPair);
             }
             
-            LineItem lineItem = graphPane.AddCurve("Sin Curve", pointPairs, Color.Red, SymbolType.None);
+            LineItem lineItem = graphPane.AddCurve("Sin Curve", pointPairs, Color.Yellow, SymbolType.None);
+            lineItem.Line.IsSmooth = true;
             zedGraphControl1.AxisChange();
             
         }
@@ -125,11 +129,15 @@ namespace mini_scope_pc
         private void button1_Click(object sender, EventArgs e)
         {
             timer1.Enabled = !timer1.Enabled;
+            Control_message();
         }
 
         //30 Hz display refresh
         private void timer1_Tick(object sender, EventArgs e)
         {
+            //átrakni  a data readyhez
+            Control_message();
+            debug.Text = buffer[buff_pointer].ToString();
             //clear trigger line after a sec
             if (trigger_line_delete_delay > 0) trigger_line_delete_delay--;
             else graphPane.GraphObjList.Clear();
@@ -189,18 +197,21 @@ namespace mini_scope_pc
             }
 
             //draw the graph from buffer
-            if (true)
+            if (data_ready == true)
             {
-                ready = false;
+                data_ready = false;
                 PointPairList pointPairs = new PointPairList();
 
                 for (int i = 0; i < buffer.Length; i++)
                 {
 
-                    buffer[i] = Math.Sin(i * Math.PI / 180.0);
+                    //buffer[i] = Math.Sin(i * Math.PI / 180.0);
+                    buffer[i] = buffer[i] / 4094.0;
+                    buffer[i] = buffer[i] * 5.0;
+                    buffer[i] = buffer[i] - 2.5;
                     double x = i - buffer.Length / 2;
                     double y;
-
+                    
                     //add voltage offset and probe control
                     if (probe_div.Text == "1X") y = buffer[i] + (Convert.ToDouble(voltage_offset_track.Value) / 100.0);
                     else y = 10 * buffer[i] + (Convert.ToDouble(voltage_offset_track.Value) / 100.0);
@@ -214,7 +225,13 @@ namespace mini_scope_pc
 
                 LineItem lineItem = graphPane.AddCurve("Sin Curve", pointPairs, Color.Yellow, SymbolType.None);
                 lineItem.Line.Width = 2;
-                lineItem.Line.IsSmooth = true;
+                lineItem.Line.IsSmooth = false;
+
+                /*
+                //send control packet function
+                //reset buff pointer
+                 */
+                
             }
             
             zedGraphControl1.AxisChange();
@@ -230,8 +247,8 @@ namespace mini_scope_pc
         //set the coupling AC/DC
         private void coupling_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (coupling.Text == "DC") ;
-            else ;
+            if (coupling.Text == "DC") ac_dc = false;
+            else ac_dc = true;
         }
 
 
@@ -258,7 +275,7 @@ namespace mini_scope_pc
         //set higher voltage div
         private void volt_div_down_Click(object sender, EventArgs e)
         {
-            if (volt_divs_pointer < 9) volt_divs_pointer++;
+            if (volt_divs_pointer < volt_divs.Length - 1) volt_divs_pointer++;
             if (volt_divs[volt_divs_pointer] < 1) voltage_div.Text = (volt_divs[volt_divs_pointer] * 1000).ToString() + " mV/div";
             else voltage_div.Text = volt_divs[volt_divs_pointer].ToString() + " V/div";
             zedGraphControl1.GraphPane.YAxis.Scale.Min = -4 * volt_divs[volt_divs_pointer];
@@ -283,71 +300,51 @@ namespace mini_scope_pc
         //set higher time div
         private void time_div_down_Click(object sender, EventArgs e)
         {
-            if (time_divs_pointer < 14) time_divs_pointer++;
+            if (time_divs_pointer < time_divs.Length - 1) time_divs_pointer++;
             if (time_divs[time_divs_pointer] < 1.0) time_div.Text = (time_divs[time_divs_pointer] * 1000).ToString() + " us/div";
             else time_div.Text = (time_divs[time_divs_pointer]).ToString() + " ms/div";
 
             //set buffer size
             switch (time_divs[time_divs_pointer]) 
             {
-                case 0.01:  buffer = new double[120];
-                    sampling_rate_div = 1;
-                    break;
-                case 0.02:
-                    buffer = new double[240];
-                    sampling_rate_div = 1;
-                    break;
                 case 0.05:
-                    buffer = new double[600];
                     sampling_rate_div = 1;
                     break;
                 case 0.10:
-                    buffer = new double[1200];
-                    sampling_rate_div = 1;
-                    break;
-                case 0.20:
-                    buffer = new double[1200];
                     sampling_rate_div = 2;
                     break;
-                case 0.50:
-                    buffer = new double[1200];
-                    sampling_rate_div = 5;
+                case 0.20:
+                    sampling_rate_div = 4;
                     break;
-                case 1.00:
-                    buffer = new double[1200];
+                case 0.50:
                     sampling_rate_div = 10;
                     break;
-                case 2.00:
-                    buffer = new double[1200];
+                case 1.00:
                     sampling_rate_div = 20;
                     break;
-                case 5.00:
-                    buffer = new double[1200];
-                    sampling_rate_div = 50;
+                case 2.00:
+                    sampling_rate_div = 40;
                     break;
-                case 10.0:
-                    buffer = new double[1200];
+                case 5.00:
                     sampling_rate_div = 100;
                     break;
-                case 20.0:
-                    buffer = new double[1200];
+                case 10.0:
                     sampling_rate_div = 200;
                     break;
-                case 50.0:
-                    buffer = new double[1200];
-                    sampling_rate_div = 500;
+                case 20.0:
+                    sampling_rate_div = 400;
                     break;
-                case 100.0:
-                    buffer = new double[1200];
+                case 50.0:
                     sampling_rate_div = 1000;
                     break;
-                case 200.0:
-                    buffer = new double[1200];
+                case 100.0:
                     sampling_rate_div = 2000;
                     break;
+                case 200.0:
+                    sampling_rate_div = 4000;
+                    break;
                 case 500.0:
-                    buffer = new double[1200];
-                    sampling_rate_div = 5000;
+                    sampling_rate_div = 10000;
                     break;
             }
 
@@ -362,69 +359,49 @@ namespace mini_scope_pc
             if (time_divs_pointer > 0) time_divs_pointer--;
             if (time_divs[time_divs_pointer] < 1.0) time_div.Text = (time_divs[time_divs_pointer] * 1000).ToString() + " us/div";
             else time_div.Text = (time_divs[time_divs_pointer]).ToString() + " ms/div";
-
+            
             //set buffer size
             switch (time_divs[time_divs_pointer])
             {
-                case 0.01:
-                    buffer = new double[120];
-                    sampling_rate_div = 1;
-                    break;
-                case 0.02:
-                    buffer = new double[240];
-                    sampling_rate_div = 1;
-                    break;
                 case 0.05:
-                    buffer = new double[600];
                     sampling_rate_div = 1;
                     break;
                 case 0.10:
-                    buffer = new double[1200];
-                    sampling_rate_div = 1;
-                    break;
-                case 0.20:
-                    buffer = new double[1200];
                     sampling_rate_div = 2;
                     break;
-                case 0.50:
-                    buffer = new double[1200];
-                    sampling_rate_div = 5;
+                case 0.20:
+                    sampling_rate_div = 4;
                     break;
-                case 1.00:
-                    buffer = new double[1200];
+                case 0.50:
                     sampling_rate_div = 10;
                     break;
-                case 2.00:
-                    buffer = new double[1200];
+                case 1.00:
                     sampling_rate_div = 20;
                     break;
-                case 5.00:
-                    buffer = new double[1200];
-                    sampling_rate_div = 50;
+                case 2.00:
+                    sampling_rate_div = 40;
                     break;
-                case 10.0:
-                    buffer = new double[1200];
+                case 5.00:
                     sampling_rate_div = 100;
                     break;
-                case 20.0:
-                    buffer = new double[1200];
+                case 10.0:
                     sampling_rate_div = 200;
                     break;
-                case 50.0:
-                    buffer = new double[1200];
-                    sampling_rate_div = 500;
+                case 20.0:
+                    sampling_rate_div = 400;
                     break;
-                case 100.0:
-                    buffer = new double[1200];
+                case 50.0:
                     sampling_rate_div = 1000;
                     break;
-                case 200.0:
-                    buffer = new double[1200];
+                case 100.0:
                     sampling_rate_div = 2000;
                     break;
+                case 200.0:
+                    sampling_rate_div = 4000;
+                    break;
                 case 500.0:
-                    buffer = new double[1200];
-                    sampling_rate_div = 5000;
+
+                    sampling_rate_div = 10000;
                     break;
             }
 
@@ -459,14 +436,15 @@ namespace mini_scope_pc
         {
             if (!serialPort1.IsOpen)
             {
-                serialPort1.BaudRate = 9600;
+                serialPort1.BaudRate = 115200;
                 serialPort1.DataBits = 8;
                 serialPort1.StopBits = System.IO.Ports.StopBits.One;
                 serialPort1.Parity = System.IO.Ports.Parity.None;
                 serialPort1.Handshake = System.IO.Ports.Handshake.None;
+                serialPort1.ReceivedBytesThreshold = 2; //1 packet contains 2 bytes
                 serialPort1.PortName = com_port_list.Text;
                 serialPort1.Open();
-                serialPort1.Write("0");
+                //serialPort1.Write("0");
                 com_conn.Text = "Disconnect";
             }
             else 
@@ -480,24 +458,27 @@ namespace mini_scope_pc
         {
             try
             {
-                if (buff_pointer < buffer.Length)
+                if (buff_pointer < buffer.Length - 1)
                 {
-                    //buffer[buff_pointer] = Convert.ToDouble(serialPort1.ReadLine()) / 4096;
 
-                    string input = serialPort1.ReadLine();
-
-                    //buffer[buff_pointer] = Double.Parse(input);
-                    if (Double.TryParse(input, out buffer[buff_pointer]) == true)
-                        buff_pointer++;
+                    int temp = serialPort1.ReadByte();
+                    temp = temp << 8;
+                    temp = temp | serialPort1.ReadByte();
+                    buffer[buff_pointer] = Convert.ToDouble(temp);
+                    buff_pointer++;
+                    serialPort1.DiscardInBuffer();
                 }
                 else
                 {
                     buff_pointer = 0;
-                    ready = true;
+                    data_ready = true;
                 }
             }
-            catch { }
+            catch (Exception ex){ MessageBox.Show(ex.Message); }
+            
+
         }
+
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -536,6 +517,12 @@ namespace mini_scope_pc
             else cursor_a_b.Text = "CursorA";
         }
 
+        private void trigger_select_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (trigger_select.Text == "Rising") rising = true;
+            else rising = false;
+        }
+
         //select axis
         private void cursor_select_axix_Click(object sender, EventArgs e)
         {
@@ -562,6 +549,129 @@ namespace mini_scope_pc
                 if (cursor_a_b.Text == "CursorA") cursor_ay_value = Convert.ToDouble(cursor_value.Value)/1000;
                 else cursor_by_value = Convert.ToDouble(cursor_value.Value)/1000;
             }
+        }
+
+        private void Control_message() 
+        {
+            int cntrl = 0;
+
+            byte[] cntrl_to_serial = new byte[3];
+
+            if (rising == false) cntrl++;
+
+            cntrl = cntrl << 1;
+
+            if (timer1.Enabled) cntrl++;
+
+            cntrl = cntrl << 4;
+
+            switch (sampling_rate_div) 
+            {
+                case 1: 
+                    cntrl = cntrl + 0b0000;
+                    break;
+
+                case 2:
+                    cntrl = cntrl + 0b0001;
+                    break;
+
+                case 4:
+                    cntrl = cntrl + 0b0010;
+                    break;
+
+                case 10:
+                    cntrl = cntrl + 0b0011;
+                    break;
+
+                case 20:
+                    cntrl = cntrl + 0b0100;
+                    break;
+
+                case 40:
+                    cntrl = cntrl + 0b0101;
+                    break;
+
+                case 100:
+                    cntrl = cntrl + 0b0110;
+                    break;
+
+                case 200:
+                    cntrl = cntrl + 0b0111;
+                    break;
+
+                case 400:
+                    cntrl = cntrl + 0b1000;
+                    break;
+
+                case 1000:
+                    cntrl = cntrl + 0b1001;
+                    break;
+
+                case 2000:
+                    cntrl = cntrl + 0b1010;
+                    break;
+
+                case 4000:
+                    cntrl = cntrl + 0b1011;
+                    break;
+                case 10000:
+                    cntrl = cntrl + 0b1100;
+                    break;
+            }
+            
+
+            cntrl = cntrl << 1;
+
+            if (ac_dc == true) cntrl = cntrl + 0b01;
+            else cntrl = cntrl + 0b00;
+
+            cntrl_to_serial[0] = (byte)cntrl;
+
+            //debug.Text = Convert.ToString(cntrl_to_serial[2], 2).PadLeft(8,'0') + "   " + Convert.ToString(cntrl_to_serial[2], 2).Length;
+            //debug.Text = trackBar1.Value.ToString();
+            cntrl = 0;
+            double trigg;
+
+            if (probe_div.Text == "1X") 
+            {
+                trigg = trackBar1.Value / 100.0;
+                trigg = (trigg + 2.5) / 5.0;
+                trigg = trigg * 4094;
+                //debug.Text = trigg.ToString();
+            }
+            else 
+            {
+                trigg = trackBar1.Value / 100.0;
+                trigg = (trigg + 25) / 50;
+                trigg = trigg * 4094;
+                //debug.Text = trigg.ToString();
+            }
+
+            cntrl = Convert.ToInt32(trigg);
+
+            if (cntrl < 0) cntrl = 0;
+            if (cntrl > 4095) cntrl = 4095;
+
+            if (rising == false) cntrl = cntrl | 0b1111000000000000;
+            //debug2.Text = buffer[buff_pointer].ToString();
+            byte[] temp = BitConverter.GetBytes(cntrl);
+
+            cntrl_to_serial[1] = temp[0];
+            cntrl_to_serial[2] = temp[1];
+
+            
+            //debug.Text = buff_pointer.ToString();
+            if (serialPort1.IsOpen) 
+            {
+                /*serialPort1.Write(cntrl_to_serial, 2, 1);
+                serialPort1.DiscardOutBuffer();
+                serialPort1.Write(cntrl_to_serial, 0, 1);
+                serialPort1.DiscardOutBuffer();
+                serialPort1.Write(cntrl_to_serial, 1, 1);
+                */
+                serialPort1.Write(cntrl_to_serial, 0, cntrl_to_serial.Length);
+            }
+       
         }
     }
 }

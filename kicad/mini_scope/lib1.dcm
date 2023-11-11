@@ -1,5 +1,17 @@
 EESchema-DOCLIB  Version 2.0
 #
+$CMP TLP2368
+D 20-Mbps inverting photocouple,3.75 kVrms, 2.7 - 5.5 Vdd, push-pull output
+K Photocouple highspeed inverting push-pull output
+F https://www.farnell.com/datasheets/1508291.pdf
+$ENDCMP
+#
+$CMP USBLC6-2SC6
+D Very low capacitance ESD protection diode, 2 data-line, SOT-23-6
+K usb ethernet video
+F https://www.st.com/resource/en/datasheet/usblc6-2.pdf
+$ENDCMP
+#
 $CMP USB_B_Micro
 D USB Micro Type B connector
 K connector USB micro
